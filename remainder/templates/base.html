@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>{% block title %}TO DO LIST{% endblock title %}</title>
+<meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'task_list' %}">Tasks</a>
+           
+        <a class="navbar-brand" href="{% url 'task_new' %}"> Add New Task</a>
+        <a class="navbar-brand" href="{% url 'admin:index' %}">Admin</a>
+        <a class="navbar-brand" href="{% url 'categories' %}">Categories</a>
+        
+    </nav>
+    <main class="container">
+        <div >
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </main>
+    
+</body>
+</html>

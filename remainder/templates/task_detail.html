@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="article-entry">
+        <h2>{{ object.title }}</h2>
+        <p> {{ object.piority }} | {{ object.deadline}}</p>
+        <p>{{ object.body }}</p>
+        <p> {{ object.category }} |  created in {{ object.date}}</p>
+    </div>
+    <p><a href="{% url 'task_edit' task.pk %}">Edit</a> |
+    <a href="{% url 'task_delete' task.pk %}">Delete</a></p>
+    <p>Back to <a href="{% url 'task_list' %}">All Tasks</a>.</p>
+{% endblock content %}

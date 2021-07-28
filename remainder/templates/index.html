@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    <br/>
+    <div class="jumbotron">
+    <h1  class="display-4" style="padding: 15px;">To Do Application</h1>
+        <div>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{% url 'admin:index' %}"role="button">Admin</a>
+            </p>
+        </div>
+        <div>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{% url 'categories' %}"role="button">Categories</a>
+            </p>
+        </div>
+        <div>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{% url 'task_list' %}"role="button">View All Tasks</a>
+            </p>
+        </div>
+        
+        <!-- <a href="{% url 'task_new' %}" style="  margin-top: 10px; padding-left: 30px">+Add New Task</a> -->
+
+    </div>
+     
+     <div > 
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="{% url 'task_new' %}"role="button">+Add New Task</a>
+        </p>
+     </div>
+     <!-- <ul >
+        <li style="padding-bottom: 10px;"><a href='#'> Admin</a></li> 
+         <li style="padding-bottom: 10px;"><a href="#">Categories</a></li>
+        <li style="padding-bottom: 10px;"> <a href="{% url 'task_list' %}">Tasks</a></li>
+     </ul> -->
+
+{% endblock content %}
