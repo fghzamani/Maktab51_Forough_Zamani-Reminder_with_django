@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <p>{{ categories_detail.name}}</p>
+    {% for task in categories_detail.task_set.all %}
+    
+        <div>{{task.title}}</div>
+        
+    {% endfor %}
+
+{% endblock content %}

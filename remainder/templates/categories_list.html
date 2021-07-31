@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Categories{% endblock title %}
+{% block content %}
+<br>
+<h3>Categories </h3>
+{% for category in object_list %}
+    <div class="article-entry">
+        
+        <a href="{% url 'categories_details' category.pk  %}"><span class="font-weight-bold">{{category.name}}</span> </a>
+             
+    </div>
+{% endfor%}
+<hr>
+<div>
+    <h3>Categories with no task</h3>
+    {% for category in empty_list %}
+    <div>
+        {{category.name}}
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

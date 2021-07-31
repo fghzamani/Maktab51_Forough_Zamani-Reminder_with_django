@@ -4,22 +4,31 @@ from django.utils import timezone
 import datetime
 # Create your models here.
 
+
+class ExpiredTaskManager(models.Manager):
+
+    def set_expired(self):
+        return self.filter(deadline__lt=timezone.now())
+
+class EmptycategoriesManager(models.Manager):
+    
+    def empty_categories(self):
+        return self.filter(category__isnull=True)
+
 class Task(models.Model):
-    """
-    [summary]
-
-    """
-    # class Meta:
-    #     ordering = ["deadline"]
-
    
-    PIORITY_CHOICES = [('H','High'),('M','Medium'),('L','Low')]
+    PIORITY_CHOICES = [('High','High'),('Medium','Medium'),('Low','Low')]
     title = models.CharField(max_length=40)
     body = models.TextField(max_length=100)
-    date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField(default=datetime.date.today)
     category = models.ForeignKey('Categories',on_delete=models.CASCADE,null=True)
-    piority = models.CharField(max_length=1,choices=PIORITY_CHOICES,default='L')
-    deadline = models.DateTimeField(default=timezone.now)
+    piority = models.CharField(max_length=10,choices=PIORITY_CHOICES,default='Low')
+    deadline = models.DateTimeField(null=True)
+    status = models.BooleanField(default=False)
+    objects = ExpiredTaskManager()
+
+    class Meta:
+        ordering = ['deadline']
 
     def __str__(self):
         return self.title
@@ -27,16 +36,22 @@ class Task(models.Model):
     def get_absolute_url(self):
         return reverse('task_detail', args=[str(self.id)])
 
-    def rest_time(self):
-        residual_time =self.deadline -datetime.date.today()
-        return residual_time
-    
+    def set_status(self):
+        "Returns whether the Tasks's due date has passed or not."
+        if self.deadline and datetime.date.today() > self.deadline:
+            self.status = True
+            self.save()
 
 class Categories(models.Model):
     class Meta:
-        ordering = ["task_group"]
+        ordering = ["name"]
 
-    task_group = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    objects = EmptycategoriesManager()
 
     def __str__(self):
-        return self.task_group
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('categories_detail', args=[str(self.id)])
+

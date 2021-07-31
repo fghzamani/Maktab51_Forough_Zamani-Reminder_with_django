@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
+{% load time_tag %}
 {% block content %}
     <div class="article-entry">
+        <br>
         <h2>{{ object.title }}</h2>
-        <p> {{ object.piority }} | {{ object.deadline}}</p>
+        <p> {{ object.piority }} | deadline: {{ object.deadline}}</p>
         <p>{{ object.body }}</p>
-        <p> {{ object.category }} |  created in {{ object.date}}</p>
+        <p> {{ object.category }} |  created in {{ object.created_date}}</p>
+        <p class='card bg-light'>Remaing Time : {%remaining_time object.deadline %}</p>
     </div>
     <p><a href="{% url 'task_edit' task.pk %}">Edit</a> |
     <a href="{% url 'task_delete' task.pk %}">Delete</a></p>
