@@ -3,7 +3,7 @@
 {% block title %}Tasks{% endblock title %}
 {% block content %}
     
-    {% for task in object_list %}
+    {% for task in due_list %}
         <br>
         
         <div class="card">
@@ -34,8 +34,8 @@
             </div>
         </div>
         <br>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#"role="button"> Download</a>
-        </p
     {% endfor %}
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#"role="button"> Download</a>
+    </p>
 {% endblock content %}

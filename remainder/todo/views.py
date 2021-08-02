@@ -12,6 +12,7 @@ class TaskListView(ListView):
     def get_context_data(self,**kwargs):
         context = super(TaskListView,self).get_context_data(**kwargs)
         context['expired_list'] = Task.objects.set_expired()
+        context['due_list'] = Task.objects.set_exclude_tasks()
         print(context)
         return context
 
@@ -19,6 +20,7 @@ class TaskListView(ListView):
 class TaskDetailView(DetailView): 
     model = Task
     template_name = 'task_detail.html'
+
 
 class TaskCreateView(CreateView): 
     model = Task
@@ -39,7 +41,11 @@ class TaskDeleteView(DeleteView):
 class CategoriesView(ListView):
     model = Categories
     template_name = 'categories_list.html'
-
+    def get_context_data(self,**kwargs):
+        context = super(CategoriesView,self).get_context_data(**kwargs)
+        context['empty_list'] = Categories.objects.empty_categories()
+        print(context)
+        return context
 
 class DetailsCategoriesView(DetailView):
     context_object_name = 'categories_detail'
@@ -51,14 +57,8 @@ class DetailsCategoriesView(DetailView):
         print(context)
         return context 
 
-class EmptyCategoriesViews(ListView):
-    model = Categories
-    template_name = 'categories_list.html'
+
     
-    def get_context_data(self,**kwargs):
-        context = super(EmptyCategoriesViews,self).get_context_data(**kwargs)
-        context['empty_list'] = Categories.objects.empty_categories()
-        print(context)
-        return context
+    
 
    

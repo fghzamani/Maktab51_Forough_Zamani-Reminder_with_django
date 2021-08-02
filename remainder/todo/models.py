@@ -9,11 +9,14 @@ class ExpiredTaskManager(models.Manager):
 
     def set_expired(self):
         return self.filter(deadline__lt=timezone.now())
+    
+    def set_exclude_tasks(self):
+        return self.exclude(deadline__lt=timezone.now())
 
 class EmptycategoriesManager(models.Manager):
     
     def empty_categories(self):
-        return self.filter(category__isnull=True)
+        return self.filter(task__isnull=True)
 
 class Task(models.Model):
    
@@ -37,10 +40,12 @@ class Task(models.Model):
         return reverse('task_detail', args=[str(self.id)])
 
     def set_status(self):
-        "Returns whether the Tasks's due date has passed or not."
-        if self.deadline and datetime.date.today() > self.deadline:
-            self.status = True
-            self.save()
+        "change the status of task if it it done "
+    
+        self.status=True
+        self.save()
+        return self.status
+            
 
 class Categories(models.Model):
     class Meta:
